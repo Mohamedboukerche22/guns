@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Battle - Weapons for Sell</title>
+    <style>
+        :root {
+            --primary: #ff6600;
+            --secondary: #333;
+            --dark: #121212;
+            --darker: #0a0a0a;
+            --light: #e0e0e0;
+            --success: #28a745;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background-color: var(--dark);
+            color: var(--light);
+            line-height: 1.6;
+        }
+        
+        header {
+            background-color: var(--darker);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--primary);
+        }
+        
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+        
+        nav ul li a {
+            color: var(--light);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: var(--primary);
+        }
+        
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://npr.brightspotcdn.com/dims4/default/2f2d95f/2147483647/strip/true/crop/5485x3085+0+0/resize/1760x990!/format/webp/quality/90/?url=https%3A%2F%2Fmedia.npr.org%2Fassets%2Fimg%2F2017%2F11%2F26%2Fap_528263331762_wide-8ef118237cc97806397f708087bded5ebc2e2308.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 60vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 2rem;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--primary);
+            color: var(--dark);
+            padding: 0.8rem 1.5rem;
+            margin-top: 1rem;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: #e65c00;
+        }
+        
+        .games {
+            padding: 4rem 2rem;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2rem;
+            color: var(--primary);
+        }
+        
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .game-card {
+            background-color: var(--darker);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s;
+        }
+        
+        .game-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .game-img {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .game-info {
+            padding: 1.5rem;
+        }
+        
+        .game-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .game-price {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary);
+            margin: 1rem 0;
+        }
+        
+        .payment-section {
+            padding: 4rem 2rem;
+            background-color: var(--darker);
+            text-align: center;
+        }
+        
+        .payment-steps {
+            max-width: 800px;
+            margin: 2rem auto;
+            text-align: left;
+        }
+        
+        .payment-step {
+            margin-bottom: 1.5rem;
+            padding-left: 2rem;
+            position: relative;
+        }
+        
+        .payment-step:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: bold;
+        }
+        
+        .wallet-address {
+            background-color: var(--dark);
+            padding: 1rem;
+            margin: 2rem 0;
+            border-radius: 5px;
+            font-family: monospace;
+            word-break: break-all;
+            border: 1px dashed var(--primary);
+        }
+        
+        .verification-form {
+            max-width: 600px;
+            margin: 2rem auto;
+            background-color: var(--dark);
+            padding: 2rem;
+            border-radius: 8px;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        
+        input, textarea {
+            width: 100%;
+            padding: 0.8rem;
+            background-color: #222;
+            border: 1px solid #444;
+            border-radius: 4px;
+            color: var(--light);
+        }
+        
+        .file-upload {
+            border: 2px dashed #444;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+        }
+        
+        footer {
+            background-color: var(--darker);
+            padding: 2rem;
+            text-align: center;
+            border-top: 1px solid #333;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background-color: var(--darker);
+            padding: 2rem;
+            border-radius: 8px;
+            max-width: 600px;
+            width: 90%;
+            position: relative;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--light);
+        }
+        
+        .success-message {
+            color: var(--success);
+            font-weight: bold;
+            margin-top: 1rem;
+            display: none;
+        }
+        
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin-top: 1rem;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">DEATHFACTORY</div>
+        <nav>
+            <ul>
+                <li><a href="#games">Guns</a></li>
+                <li><a href="#payment">How to Pay</a></li>
+                <li><a href="#verify">Verify Payment</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <section class="hero">
+        <h1>buy Weapons</h1>
+        <a href="#games" class="btn"> guns</a>
+    </section>
+    
+    <section id="games" class="games">
+        <h2 class="section-title">Our guns Collection</h2>
+            <div class="games-grid">
+                <!-- Mauser Gewehr 98 -->
+                <div class="game-card">
+                    <div class="game-img" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/e/ed/Gewehr_98_noBG.jpg');"></div>
+                    <div class="game-info">
+                        <h3 class="game-title">Mauser Gewehr 98</h3>
+                        <p>German bolt-action rifle (1898). Collector's item in excellent condition.</p>
+                        <div class="game-price">0.15 BTC</div>
+                        <button class="btn buy-btn" data-game="Mauser Gewehr 98" data-price="0.15">View Details</button>
+                    </div>
+                </div>
+            
+                <!-- Mosin-Nagant -->
+                <div class="game-card">
+                    <div class="game-img" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/5/5b/Mosin-remove-bg.png');"></div>
+                    <div class="game-info">
+                        <h3 class="game-title">Mosin-Nagant</h3>
+                        <p>Russian rifle (1891). Common surplus rifle with historical value.</p>
+                        <div class="game-price">0.04 BTC</div>
+                        <button class="btn buy-btn" data-game="Mosin-Nagant" data-price="0.04">View Details</button>
+                    </div>
+                </div>
+            
+                <!-- AR-15 Platform -->
+                <div class="game-card">
+                    <div class="game-img" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/d/d2/Stag2wi.jpg');"></div>
+                    <div class="game-info">
+                        <h3 class="game-title">AR-15 Platform</h3>
+                        <p>Modern sporting rifle (1964). Base model from reputable manufacturer.</p>
+                        <div class="game-price">0.08 BTC</div>
+                        <button class="btn buy-btn" data-game="AR-15 Platform" data-price="0.08">View Details</button>
+                    </div>
+                </div>
+            
+                <!-- AK-47/AKM -->
+                <div class="game-card">
+                    <div class="game-img" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/AKM_automatkarbin%2C_Ryssland_-_7%2C62x39mm_-_Arm%C3%A9museum.jpg/1024px-AKM_automatkarbin%2C_Ryssland_-_7%2C62x39mm_-_Arm%C3%A9museum.jpg');"></div>
+                    <div class="game-info">
+                        <h3 class="game-title">AK-47/AKM</h3>
+                        <p>Semi-auto version (1947). Imported from Eastern Europe.</p>
+                        <div class="game-price">0.12 BTC</div>
+                        <button class="btn buy-btn" data-game="AK-47" data-price="0.12">View Details</button>
+                    </div>
+                </div>
+            
+                <!-- Glock 17 -->
+                <div class="game-card">
+                    <div class="game-img" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Glock_17_%286825676904%29_%D0%B1%D0%B5%D0%B7_%D1%84%D0%BE%D0%BD%D0%B0.jpg/1024px-Glock_17_%286825676904%29_%D0%B1%D0%B5%D0%B7_%D1%84%D0%BE%D0%BD%D0%B0.jpg');"></div>
+                    <div class="game-info">
+                        <h3 class="game-title">Glock 17</h3>
+                        <p>Gen 5 model (1982). New in box with 3 magazines.</p>
+                        <div class="game-price">0.05 BTC</div>
+                        <button class="btn buy-btn" data-game="Glock 17" data-price="0.05">View Details</button>
+                    </div>
+                </div>
+            
+                <!-- FN FAL -->
+                <div class="game-card">
+                    <div class="game-img" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/FN-FAL_belgian.jpeg/1920px-FN-FAL_belgian.jpeg');"></div>
+                    <div class="game-info">
+                        <h3 class="game-title">FN FAL</h3>
+                        <p>Belgian pattern (1953). Semi-auto only, metric pattern.</p>
+                        <div class="game-price">0.18 BTC</div>
+                        <button class="btn buy-btn" data-game="FN FAL" data-price="0.18">View Details</button>
+                    </div>
+                </div>
+            
+                <!-- Thompson Submachine Gun -->
+                <div class="game-card">
+                    <div class="game-img" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/b/bf/Campbell_Thompson.jpg');"></div>
+                    <div class="game-info">
+                        <h3 class="game-title">Thompson SMG</h3>
+                        <p>Replica model (1918). Semi-auto with drum magazine.</p>
+                        <div class="game-price">0.25 BTC</div>
+                        <button class="btn buy-btn" data-game="Thompson SMG" data-price="0.25">View Details</button>
+                    </div>
+                </div>
+            
+                <!-- MP5 -->
+                <div class="game-card">
+                    <div class="game-img" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Heckler_%26_Koch_MP5-1.jpg/800px-Heckler_%26_Koch_MP5-1.jpg');"></div>
+                    <div class="game-info">
+                        <h3 class="game-title">Heckler & Koch MP5</h3>
+                        <p>PTR-9 clone (1966). Semi-auto pistol caliber carbine.</p>
+                        <div class="game-price">0.22 BTC</div>
+                        <button class="btn buy-btn" data-game="MP5" data-price="0.22">View Details</button>
+                    </div>
+                </div>
+            
+                <!-- Remington 870 -->
+                <div class="game-card">
+                    <div class="game-img" style="background-image: url('https://cdn11.bigcommerce.com/s-qw5zgu6e1i/images/stencil/1280x1280/products/5215/11147/REMR25549_1_HR__24847.1683917272.jpg?c=1');"></div>
+                    <div class="game-info">
+                        <h3 class="game-title">Remington 870</h3>
+                        <p>Wingmaster model (1950). 12ga with 28" barrel.</p>
+                        <div class="game-price">0,0002 BTC</div>
+                        <button class="btn buy-btn" data-game="Remington 870" data-price="0.06">View Details</button>
+                    </div>
+                </div>
+            
+                <!-- Browning M2 -->
+                <div class="game-card">
+                    <div class="game-img" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/M2_Browning%2C_Mus%C3%A9e_de_l%27Arm%C3%A9e.jpg/1024px-M2_Browning%2C_Mus%C3%A9e_de_l%27Arm%C3%A9e.jpg');"></div>
+                    <div class="game-info">
+                        <h3 class="game-title">Browning M2</h3>
+                        <p>Deactivated display piece (1933). Non-firing replica.</p>
+                        <div class="game-price">0.35 BTC</div>
+                        <button class="btn buy-btn" data-game="Browning M2" data-price="0.35">View Details</button>
+                    </div>
+                </div>
+            
+                <!-- Colt Single Action Army -->
+                <div class="game-card">
+                    <div class="game-img" style="background-image: url('https://www.colt.com/wp-content/uploads/2022/12/SINGLE-ACTION-ARMY-7.522-45LC.jpg');"></div>
+                    <div class="game-info">
+                        <h3 class="game-title">Colt SAA</h3>
+                        <p>3rd Gen reproduction (1873). .45LC with 5.5" barrel.</p>
+                        <div class="game-price">0.09 BTC</div>
+                        <button class="btn buy-btn" data-game="Colt SAA" data-price="0.09">View Details</button>
+                    </div>
+                </div>
+            
+                <!-- RPG-7 -->
+                <div class="game-card">
+                    <div class="game-img" style="background-image: url('https://aresmaxima.com/wp-content/uploads/2022/04/ARDGUM-GL-01-0001-0__23031.1604665890.jpg');"></div>
+                    <div class="game-info">
+                        <h3 class="game-title">RPG-7</h3>
+                        <p>Non-firing replica (1961). Display/dummy unit only.</p>
+                        <div class="game-price">0.28 BTC</div>
+                        <button class="btn buy-btn" data-game="RPG-7" data-price="0.28">View Details</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="payment" class="payment-section">
+        <h2 class="section-title">How to Pay with Bitcoin</h2>
+        <div class="payment-steps">
+            <div class="payment-step">
+                <strong>Step 1:</strong> Choose your game and click "Buy Now"
+            </div>
+            <div class="payment-step">
+                <strong>Step 2:</strong> Copy our Bitcoin wallet address
+            </div>
+            <div class="payment-step">
+                <strong>Step 3:</strong> Send the exact amount in BTC to our wallet
+            </div>
+            <div class="payment-step">
+                <strong>Step 4:</strong> Take a screenshot of the transaction confirmation
+            </div>
+            <div class="payment-step">
+                <strong>Step 5:</strong> Submit the screenshot using the form below
+            </div>
+        </div>
+        
+        <div id="wallet-display">
+            <h3>Our Bitcoin Wallet Address:</h3>
+            <div class="wallet-address" id="wallet-address">bc1qmyxyzcrmvgzhl7l7a87dcs2ddpxsr48rzdzw8n</div>
+            <button class="btn" id="copy-wallet">Copy Address</button>
+        </div>
+    </section>
+    
+    <section id="verify" class="payment-section">
+        <h2 class="section-title">Verify Your Payment</h2>
+        <div class="verification-form">
+            <div class="form-group">
+                <label for="game-name">Game Purchased</label>
+                <input type="text" id="game-name" readonly>
+            </div>
+            <div class="form-group">
+                <label for="payment-amount">Amount Paid (BTC)</label>
+                <input type="text" id="payment-amount" readonly>
+            </div>
+            <div class="form-group">
+                <label for="transaction-id">Transaction ID</label>
+                <input type="text" id="transaction-id" placeholder="Enter your Bitcoin transaction ID">
+            </div>
+            <div class="form-group">
+                <label>Payment Proof (Screenshot)</label>
+                <div class="file-upload" id="file-upload">
+                    <p>Click to upload screenshot of your payment</p>
+                    <input type="file" id="payment-proof" accept="image/*" style="display: none;">
+                </div>
+                <div id="file-name"></div>
+            </div>
+            <button class="btn" id="submit-verification">Submit Verification</button>
+            <div class="success-message" id="success-message">
+                Thank you! Your payment is being verified. We'll send the game download link to your email within 24 hours.
+            </div>
+    </section>
+    
+    <div class="modal" id="payment-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Complete Your Purchase</h2>
+            <p>You are purchasing: <span id="modal-game-name"></span></p>
+            <p>Price: <span id="modal-game-price"></span> BTC</p>
+            <div class="wallet-address">bc1qmyxyzcrmvgzhl7l7a87dcs2ddpxsr48rzdzw8n</div>
+            <button class="btn" id="copy-wallet-modal">Copy Wallet Address</button>
+            <p>After payment, please submit your transaction details below.</p>
+            <button class="btn" id="go-to-verify">Go to Verification</button>
+        </div>
+    </div>
+    
+    <footer>
+        <p>&copy; 2023 Battleguns. All rights reserved.</p>
+        <p>Bitcoin payments only. No refunds.</p>
+    </footer>
+    
+    <script>
+        // Game purchase functionality
+        const buyButtons = document.querySelectorAll('.buy-btn');
+        const paymentModal = document.getElementById('payment-modal');
+        const closeModal = document.querySelector('.close-modal');
+        const modalGameName = document.getElementById('modal-game-name');
+        const modalGamePrice = document.getElementById('modal-game-price');
+        const goToVerify = document.getElementById('go-to-verify');
+        const gameNameInput = document.getElementById('game-name');
+        const paymentAmountInput = document.getElementById('payment-amount');
+        
+        // Wallet copy functionality
+        const walletAddress = document.getElementById('wallet-address');
+        const copyWalletBtn = document.getElementById('copy-wallet');
+        const copyWalletModalBtn = document.getElementById('copy-wallet-modal');
+        
+        // File upload functionality
+        const fileUpload = document.getElementById('file-upload');
+        const paymentProof = document.getElementById('payment-proof');
+        const fileName = document.getElementById('file-name');
+        
+        // Verification submission
+        const submitVerification = document.getElementById('submit-verification');
+        const successMessage = document.getElementById('success-message');
+        
+        // Buy button click handler
+        buyButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const gameName = this.getAttribute('data-game');
+                const gamePrice = this.getAttribute('data-price');
+                
+                modalGameName.textContent = gameName;
+                modalGamePrice.textContent = gamePrice;
+                
+                // Set values in verification form
+                gameNameInput.value = gameName;
+                paymentAmountInput.value = gamePrice;
+                
+                paymentModal.style.display = 'flex';
+            });
+        });
+        
+        // Close modal
+        closeModal.addEventListener('click', function() {
+            paymentModal.style.display = 'none';
+        });
+        
+        // Go to verification section
+        goToVerify.addEventListener('click', function() {
+            paymentModal.style.display = 'none';
+            document.getElementById('verify').scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+        
+        // Copy wallet address
+        copyWalletBtn.addEventListener('click', function() {
+            navigator.clipboard.writeText(walletAddress.textContent);
+            alert('Wallet address copied to clipboard!');
+        });
+        
+        copyWalletModalBtn.addEventListener('click', function() {
+            navigator.clipboard.writeText(walletAddress.textContent);
+            alert('Wallet address copied to clipboard!');
+        });
+        
+        // File upload handling
+        fileUpload.addEventListener('click', function() {
+            paymentProof.click();
+        });
+        
+        paymentProof.addEventListener('change', function() {
+            if (this.files.length > 0) {
+                fileName.textContent = `Selected file: ${this.files[0].name}`;
+            }
+        });
+        
+        // Submit verification
+        submitVerification.addEventListener('click', function() {
+            const transactionId = document.getElementById('transaction-id').value;
+            
+            if (!transactionId) {
+                alert('Please enter your transaction ID');
+                return;
+            }
+            
+            if (!paymentProof.files.length) {
+                alert('Please upload a screenshot of your payment');
+                return;
+            }
+            
+            // In a real implementation, you would send this data to your server
+            // For this demo, we'll just show a success message
+            
+            successMessage.style.display = 'block';
+            
+            // Reset form (in a real app, you might not want to do this immediately)
+            setTimeout(() => {
+                document.getElementById('transaction-id').value = '';
+                paymentProof.value = '';
+                fileName.textContent = '';
+                successMessage.style.display = 'none';
+            }, 5000);
+        });
+        
+        // Close modal when clicking outside
+        window.addEventListener('click', function(event) {
+            if (event.target === paymentModal) {
+                paymentModal.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
